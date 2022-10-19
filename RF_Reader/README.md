@@ -25,5 +25,5 @@ Card detected
 gcc keypad.c -o keypad -lpigpio  
 ```  
 Запуск:  
-sudo ./keypad [-h][-q] -h - описание работы
+sudo ./keypad [-h][-q] -h - описание работы  
 -q - тихий режим
