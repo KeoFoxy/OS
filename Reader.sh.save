@@ -1,0 +1,8 @@
+#!/bin/bash
+while true
+do
+	if read line; then
+		echo Reader get: $line
+	fi
+done	
+        
