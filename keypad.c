@@ -29,7 +29,7 @@
 
 char pressedKey = '\0';
 
-#define VAR8
+//#define VAR8
 
 #ifdef VAR6
 int rowPins[ROWS] = { 18, 17, 16, 25 }; // R0, R1, R2, R3				
