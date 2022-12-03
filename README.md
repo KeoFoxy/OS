@@ -23,7 +23,17 @@ Receive data from named pipe
 `make KeyPad` . 
 
 #### Run 
-`sudo ./keypad_v8_AS_SD -q`   
+`sudo ./keypad_v8_AS_SD -q`    
+
+#### Pipe work   
+
+Send data to named pipe  
+
+`sudo ./keypad_v8_AS_SD -q > keypad_data &`   
+
+Receive data from named pipe  
+
+`./Reader.sh < keypad_data`   
 
 
 ----  
