@@ -26,6 +26,9 @@
 #include <inttypes.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 #include "MFRC522.h"
 
 int debug = 0;
@@ -41,15 +44,27 @@ void help()
 
 int main(int argc, char *argv[])
 {
+	if(agrc <= 1){
+		printf("     Enter arguments! ");
+		printf("    -h - help\n");
+		printf("    -q - quiet\n");
+	}
+
 	int quiet = 0;
 	if (argc > 1) {
-		if ((strcmp(argv[1], "-h") == 0)) {
-			help();
-			return 0;
-		} else {
-			if ((strcmp(argv[1], "-q") == 0)) {
-				quiet = 1;
+		if(argc < 4){
+			if ((strcmp(argv[1], "-h") == 0)) {
+				help();
+				return 0;
+			} else {
+				if ((strcmp(argv[1], "-q") == 0)) {
+					quiet = 1;
+				}
 			}
+		} else {
+			printf("    Too much arguments! Try less");
+			printf("    -h - help\n");
+			printf("    -q - quiet\n");
 		}
 	}
 
@@ -59,6 +74,11 @@ int main(int argc, char *argv[])
 	unsigned char *uid;
 	unsigned char blockno;
 	char *next;
+
+	int fd;
+
+	fd = open(argv[2], O_RDWR);
+	//write(fd, strcmp(argv[0], "-q") , );
 
 	MFRC522_Init(0);
 	while (1) {
@@ -82,6 +102,7 @@ int main(int argc, char *argv[])
 			}
 			printf("%02x %02x %02x %02x\n", uid[0], uid[1], uid[2],
 			       uid[3]);
+			write(fd, )
 			fflush(stdout);
 			sleep(1);
 		}
