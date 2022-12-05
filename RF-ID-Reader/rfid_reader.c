@@ -44,11 +44,11 @@ void help()
 
 int main(int argc, char *argv[])
 {
-	if(agrc <= 1){
-		printf("     Enter arguments! ");
-		printf("    -h - help\n");
-		printf("    -q - quiet\n");
-	}
+	//if(agrc <= 1){
+	//	printf("     Enter arguments! ");
+	//	printf("    -h - help\n");
+	//	printf("    -q - quiet\n");
+	//}
 
 	int quiet = 0;
 	if (argc > 1) {
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 
 	int fd;
 
-	fd = open(argv[2], O_RDWR);
+	//fd = open(argv[2], O_RDWR);
 	//write(fd, strcmp(argv[0], "-q") , );
 
 	MFRC522_Init(0);
@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
 			}
 			printf("%02x %02x %02x %02x\n", uid[0], uid[1], uid[2],
 			       uid[3]);
-			write(fd, )
+			//write(fd, )
 			fflush(stdout);
 			sleep(1);
 		}

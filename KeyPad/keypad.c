@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <pigpio.h>
+#include <../pigpio.h>
 #define ROWS 4
 #define COLS 3
 
@@ -36,7 +36,7 @@ int rowPins[ROWS] = { 18, 17, 16, 25 }; // R0, R1, R2, R3
 int colPins[COLS] = { 20, 21, 19 };  // C0, C1, C2				
 #endif
 
-#ifdef VAR8
+#ifdef KeyPad_V8
 int rowPins[ROWS] = { 4, 25, 11, 8 }; // R0, R1, R2, R3	
 int colPins[COLS] = { 7, 6, 5 }; // C0, C1, C2
 #endif
