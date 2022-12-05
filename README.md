@@ -20,7 +20,7 @@ Receive data from named pipe
 
 ## Keypad 
 #### Build 
-`make KeyPad` . 
+`make KeyPad`    
 
 #### Run 
 `sudo ./keypad_v8_AS_SD -q`    
