@@ -51,10 +51,10 @@ Check for available wifi networks `iwlist wlan0 scan`. If you find your network 
 
 `sudo raspi-config`  
 
-> Navigate to <b> System Options </b>.  
-> <b>Wireless LAN</b>.  
-> Enter <b>SSID</b>. and <b>PSK</b> --> Your HOST Name and password.  
-> <b>Reboot</b> Raspberry Pi 
+* Navigate to <b> System Options </b>.  
+* <b>Wireless LAN</b>.  
+* Enter <b>SSID</b>. and <b>PSK</b> --> Your HOST Name and password.  
+* <b>Reboot</b> Raspberry Pi 
 
 Now let's check if your Raspberry has successfully connected to Wifi.  
 `ping google.com`   
