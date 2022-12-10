@@ -47,32 +47,31 @@ int main(int argc, char *argv[]){
 	//fflush(stdout);
 	//sleep(1);
 
-    int fd;
-    char *fifo;// = "tPipe";
 
-    char result[255];
-    //char *ft = argv[1];
+
+
+
+    //Code below runs only if programm receives as 
+    //arguments -q mode and namedPipe char*
+
+
+    if((argc > 2) && (strcmp(argv[1], "-q") == 0)){
     
+    int fd;
+    char *fifo;
+    char result[255];
 
     //Check for external arguments
-    // take second argument if you are using -q mode
+    //take second argument if you are using -q mode
 
-    fifo = argv[1];
+    fifo = argv[2];
     
-    if(argc > 1){
-        //fifo = argv[2];
-        printf("Hello");
-    }
-    //} //else if(argc >= 1) {
-        //fifo = argv[1];
-    //}
-    
-    //fifo = argv[1];
+    printf("%d\n", argc);
     printf("%s", fifo);
 
     printf("\n");
 
-    mkfifo(fifo, 0666);
+   // mkfifo(fifo, 0666);
 
 
     sprintf(result, "%s", "Access granted");
@@ -95,5 +94,8 @@ int main(int argc, char *argv[]){
 	} else {
 		printf("Access Denied %s\n", asctime(local));
 	}
+
+    }
+
     return 0;
 }
