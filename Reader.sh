@@ -31,16 +31,15 @@ do
                                 fi
                             fi
                         else
-                            if [[ $line  == "91 2d 0c 26" ]]
+                            if [[ ${line:0:11}  == "91 2d 0c 26" ]]
                                 then
-                                    echo "Access granted via ID" $line $(date +"%D %T")
-                                    echo "Access granted via ID" $line $(date +"%D %T") > file
-                                    date +"%D %T"
+                                    echo "Access granted via ID" $line
+                                    echo "Access granted via ID" $line > file
                                     break
                             else
-                                echo "Access denied via ID" $line $(date +"%D %T")
-                                echo "Access denied via ID" $line $(date +"%D %T") > file
-                                date +"%D %T"
+				echo ${line:0:11}
+                                echo "Access denied via ID" $line 
+                                echo "Access denied via ID" $line  > file
                                 break
                             fi
                     fi

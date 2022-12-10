@@ -26,10 +26,8 @@
 #include <inttypes.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <fcntl.h>
-#include <sys/stat.h>
 #include "MFRC522.h"
+#include "time.h"
 
 int debug = 0;
 
@@ -44,27 +42,15 @@ void help()
 
 int main(int argc, char *argv[])
 {
-	//if(agrc <= 1){
-	//	printf("     Enter arguments! ");
-	//	printf("    -h - help\n");
-	//	printf("    -q - quiet\n");
-	//}
-
 	int quiet = 0;
 	if (argc > 1) {
-		if(argc < 4){
-			if ((strcmp(argv[1], "-h") == 0)) {
-				help();
-				return 0;
-			} else {
-				if ((strcmp(argv[1], "-q") == 0)) {
-					quiet = 1;
-				}
-			}
+		if ((strcmp(argv[1], "-h") == 0)) {
+			help();
+			return 0;
 		} else {
-			printf("    Too much arguments! Try less");
-			printf("    -h - help\n");
-			printf("    -q - quiet\n");
+			if ((strcmp(argv[1], "-q") == 0)) {
+				quiet = 1;
+			}
 		}
 	}
 
@@ -75,10 +61,8 @@ int main(int argc, char *argv[])
 	unsigned char blockno;
 	char *next;
 
-	int fd;
-
-	//fd = open(argv[2], O_RDWR);
-	//write(fd, strcmp(argv[0], "-q") , );
+	struct tm *local;
+	time_t t;
 
 	MFRC522_Init(0);
 	while (1) {
@@ -94,15 +78,20 @@ int main(int argc, char *argv[])
 
 		if (status == MI_OK) {
 			// print UID
-			if (!quiet) {
-				printf("%02x %02x %02x %02x\n", uid[0], uid[1],
-				       uid[2], uid[3]);
-				fflush(stdout);
-				break;
+			// if (!quiet) {
+			// 	printf("%02x %02x %02x %02x\n", uid[0], uid[1],
+			// 	       uid[2], uid[3]);
+			// 	fflush(stdout);
+			// 	break;
+			// }
+			char t1[11]; 
+			sprintf(t1 ,"%02x %02x %02x %02x", uid[0], uid[1], uid[2], uid[3]);
+			if(strcmp(t1, "91 2d 0c 26") == 0){
+				printf("GOOD");
 			}
-			printf("%02x %02x %02x %02x\n", uid[0], uid[1], uid[2],
-			       uid[3]);
-			//write(fd, )
+			t = time(NULL);
+			local = localtime(&t);
+			printf("%02x %02x %02x %02x %s\n", uid[0], uid[1], uid[2], uid[3], asctime(local));
 			fflush(stdout);
 			sleep(1);
 		}
