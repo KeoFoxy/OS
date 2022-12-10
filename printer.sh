@@ -1,20 +1,25 @@
 #!/bin/bash
 
 #Run RF ID Reader // -q mode is broken
-#./RFID_AS_SD #rfid_data <-- Named Pipe
+
+./test -q testPipe #rfid_data <-- Named Pipe
+pipe=./testPipe
+
 
 while true
 do
-    if read line 
+    if read line  
         then
-            if [[ $line != " " ]] 
+            if [[ $line != "" ]] 
                 then
                     if [[ ${line:0:14} == "Access Granted" ]] 
                         then
+                            #echo ${line:0:14}
                             tsc prints/print.ts
                             node prints/print.js -w
                             break
                         else
+                            #echo ${line:0:14}
                             tsc prints/print.ts
                             node prints/print.js -e
                             break
@@ -24,9 +29,3 @@ do
 done
 
 
-
-
-
-
-#tsc prints/print.ts
-#node prints/print.js -w
