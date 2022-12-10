@@ -66,23 +66,22 @@ int main(int argc, char *argv[]){
 
     fifo = argv[2];
     
-    printf("%d\n", argc);
-    printf("%s", fifo);
+   // printf("%d\n", argc);
+   // printf("%s", fifo);
 
-    printf("\n");
+    //printf("\n");
 
-   // mkfifo(fifo, 0666);
+    mkfifo(fifo, 0666); //Create names pipe with given name via run arguments
 
+    sprintf(result, "%s", "Access Granted"); //just for check if code is working properly
 
-    sprintf(result, "%s", "Access granted");
+    //printf("%s", result);
+   // printf("\n");
 
-    printf("%s", result);
-    printf("\n");
+    fd = open(fifo, O_RDWR);
+    write(fd, result, strlen(result) + 1);
 
-    //fd = open(fifo, O_RDWR);
-    //write(fd, result, strlen(result) + 1);
-
-
+    //close(fd);
 	t = time(NULL);
 	local = localtime(&t);
 
@@ -90,7 +89,7 @@ int main(int argc, char *argv[]){
 	if(strcmp(t1, "91 2d 0c 26") == 0){
 		printf("Access Granted %s\n", asctime(local));
 		fflush(stdout);
-		sleep(1);
+		//sleep(1);
 	} else {
 		printf("Access Denied %s\n", asctime(local));
 	}
