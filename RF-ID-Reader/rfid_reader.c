@@ -84,16 +84,32 @@ int main(int argc, char *argv[])
 			// 	fflush(stdout);
 			// 	break;
 			// }
-			char t1[11]; 
+			
+			/// ///////////////////////////////////////
+			char t1[12]; 
 			sprintf(t1 ,"%02x %02x %02x %02x", uid[0], uid[1], uid[2], uid[3]);
-			if(strcmp(t1, "91 2d 0c 26") == 0){
-				printf("GOOD");
-			}
+			
+			
+			//if(strcmp(t1, "91 2d 0c 26") == 0){
+			//	printf("GOOD");
+			//}
+			//t = time(NULL);
+			//local = localtime(&t);
+			//printf("%02x %02x %02x %02x %s\n", uid[0], uid[1], uid[2], uid[3], asctime(local));
+			//fflush(stdout);
+			//sleep(1);
+
 			t = time(NULL);
 			local = localtime(&t);
-			printf("%02x %02x %02x %02x %s\n", uid[0], uid[1], uid[2], uid[3], asctime(local));
-			fflush(stdout);
-			sleep(1);
+
+
+			if(strcmp(t1, "91 2d 0c 26") == 0){
+				printf("Access Granted %s\n", asctime(local));
+				fflush(stdout);
+				sleep(1);
+			} else {
+				printf("Access Denied %s\n", asctime(local));
+			}
 		}
 	}
 }
