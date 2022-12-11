@@ -31,15 +31,20 @@ function errorPrint(){
     console.log("88888888888  88          88           ``YbbdP`'   88              88  ")
 }
 
+//console.log(arg[0]);
+//console.log(arg[1]);
 
-switch(arg[0]){
-    case "-w":
+
+
+
+switch(arg[0] + " " +  arg[1]){
+    case "Access Granted":
         welcomePrint()
         break
-    case "-e":
+    case "Access Denied":
         errorPrint()
         break
     default:
-        console.log("No arguments");
+        console.log("\n");
         
 }
