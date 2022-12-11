@@ -66,26 +66,21 @@ int main(int argc, char *argv[]){
 
     fifo = argv[2];
     
-   // printf("%d\n", argc);
-   // printf("%s", fifo);
-
-    //printf("\n");
-
     mkfifo(fifo, 0666); //Create names pipe with given name via run arguments
 
     sprintf(result, "%s", "Access Granted"); //just for check if code is working properly
 
     //printf("%s", result);
-   // printf("\n");
 
-    fd = open(fifo, O_RDWR);
+
+    fd = open(fifo, O_WRONLY | O_NONBLOCK);
     write(fd, result, strlen(result) + 1);
 
     //close(fd);
 	t = time(NULL);
 	local = localtime(&t);
 
-
+/*
 	if(strcmp(t1, "91 2d 0c 26") == 0){
 		printf("Access Granted %s\n", asctime(local));
 		fflush(stdout);
@@ -95,6 +90,8 @@ int main(int argc, char *argv[]){
 	}
 
     }
-
+*/
+    close(fd);
+    }
     return 0;
 }
