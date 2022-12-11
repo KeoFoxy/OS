@@ -7,6 +7,9 @@
 
 const arg = process.argv.splice(2);
 
+//const element: HTMLElement = document.getElementById('Field') as HTMLElement
+//element.innerHTML = 'Hello World'
+
 
 function welcomePrint(){
     console.log("                                                                                      ")

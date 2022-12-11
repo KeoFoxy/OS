@@ -3,7 +3,7 @@
 variable=`./buff testPipe`
 
 #echo $variable
-tsc prints/print.ts
-node prints/print.js $variable
+tsc prints/app.ts
+node prints/app.js $variable
 
 #sleep 10

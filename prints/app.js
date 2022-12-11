@@ -4,6 +4,8 @@
 //let env = process.env["NODE_ENV"];
 //import process from 'node:process';
 var arg = process.argv.splice(2);
+//const element: HTMLElement = document.getElementById('Field') as HTMLElement
+//element.innerHTML = 'Hello World'
 function welcomePrint() {
     console.log("                                                                                      ");
     console.log("                                 ,,                                                   ");
