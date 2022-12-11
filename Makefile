@@ -10,3 +10,9 @@ RFID:
 	gcc ./RF-ID-Reader/MFRC522.c ./RF-ID-Reader/spi.c ./RF-ID-Reader/gpio.c ./RF-ID-Reader/rfid_reader.c -o RFID_AS_SD
 clean:
 	rm -rf rfid_reader
+
+bashMode:
+	chmod +x Receiver.sh
+	chmod +x Runner.sh
+	chmod +x RunAll.sh
+
