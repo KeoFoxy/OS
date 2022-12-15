@@ -5,8 +5,18 @@
 
 #./lastHope.sh
 
-./test -q testPipe
+#./test -q testPipe
 
+
+if [[ $1 == "Keypad" ]]
+    then 
+        ./KeyPad/keypad_AS_SD -q testPipe
+fi
+
+if [[ $1 == "RFID" ]]
+    then
+        ./RF-ID-Reader/RFID_AS_SD testPipe
+fi
 #./printer.sh < testPipe
 
 ####################################

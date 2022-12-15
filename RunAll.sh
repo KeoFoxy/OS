@@ -1,7 +1,18 @@
 #!/bin/bash
 
 ./Receiver.sh &
-./Runner.sh 
+
+if [[ $1 == "Keypad" ]]
+    then
+        echo "Running $1"
+        ./Runner.sh $1
+fi
+
+if [[ $1 == "RFID" ]]
+    then
+        echo "Running $1"
+        ./Runner.sh $1
+fi
 
 sleep 4
 
