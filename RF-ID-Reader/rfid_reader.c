@@ -29,6 +29,10 @@
 #include "MFRC522.h"
 #include "time.h"
 
+#include "fcntl.h"
+#include "sys/stat.h"
+#include "sys/types.h"
+
 int debug = 0;
 
 void help()
@@ -86,7 +90,7 @@ int main(int argc, char *argv[])
 			// }
 			
 			/// ///////////////////////////////////////
-			char t1[12]; 
+			char t1[14]; 
 			sprintf(t1 ,"%02x %02x %02x %02x", uid[0], uid[1], uid[2], uid[3]);
 			
 			
@@ -101,14 +105,35 @@ int main(int argc, char *argv[])
 
 			t = time(NULL);
 			local = localtime(&t);
+			
+			int fd;
+			char *fifo;
+			char result[255];
+
+			fifo = argv[2];
+			mkfifo(fifo, 0666);
+
+			fd = open(fifo, O_WRONLY | O_NONBLOCK);
 
 
 			if(strcmp(t1, "91 2d 0c 26") == 0){
-				printf("Access Granted %s\n", asctime(local));
+				//printf("Access Granted %s\n");//, asctime(local));
+				sprintf(result, "%s", "Access Granted");
+				write(fd, result, strlen(result) + 1);
 				fflush(stdout);
-				sleep(1);
+				memset(result, 0, 255);
+				//sleep(1);
+				close(fd);
+				break;
 			} else {
-				printf("Access Denied %s\n", asctime(local));
+				//printf("Access Denied %s\n", asctime(local));
+				sprintf(result, "%s", "Access Denied");
+				write(fd, result, strlen(result) + 1);
+				fflush(stdout);
+				memset(result, 0, 255);
+				//sleep(1);
+				close(fd);
+				break;
 			}
 		}
 	}
