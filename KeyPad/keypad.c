@@ -24,6 +24,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <../pigpio.h>
+
+#include "fcntl.h"
+#include "sys/stat.h"
+#include "sys/types.h"
+#include <unistd.h>
+
 #define ROWS 4
 #define COLS 3
 
@@ -118,18 +124,56 @@ int main(int argc, char *argv[])
 	gpioInitialise();
 	init_keypad();
 	system("clear");
-	while (1) {
-		char x = get_key();
-		if (x) {
-			if (!quiet)
-				printf("pressed: %c\n", x);
-			else
-				printf("%c\n", x);
-		} else if (!quiet)
-			printf("no key pressed\n");
-		time_sleep(0.5);
-		fflush(stdout);
-		//system("clear");
+
+	int counter = 0;
+	char resultBuffer[5];
+	char result[10];
+
+	int fd;
+	char *fifo = argv[2];
+
+	mkfifo(fifo, 0666);
+
+	fd = open(fifo, O_WRONLY | O_NONBLOCK);
+	//char result
+
+
+	//while (1) {
+		while(counter < 5){
+			char x = get_key();
+			if (x) {
+				if (!quiet){
+					printf("pressed: %c\n", x);
+					resultBuffer[counter] = x;
+					counter++
+				}
+				else{
+					printf("%c\n", x);
+					resultBuffer[counter] = x;
+					counter++
+				}
+				counter++;
+			} else if (!quiet)
+				printf("no key pressed\n");
+			time_sleep(0.5);
+			fflush(stdout);
+			//system("clear");
+		}
+
+	sprintf(result, "%c %c %c %c %c", resBuff[0], resBuff[1], resBuff[2], resBuff[3], resBuff[4]);
+
+	if(strcmp(result, "1 2 2 3 5") == 0){ //? printf("Access Granted") : printf("Access Denied");
+		char res[255];
+		sprintf(res, "%s", "Access Granted");
+		write(fd, res, strlen(res) + 1);
+		memset(res, 0, 255);
+		close(fd);
+	} else {
+		char res[255];
+		sprintf(res, "%s", "Access Denied");
+		write(fd, res, strlen(res) + 1);
+		memset(res, 0, 255);
+		close(fd);
 	}
 	gpioTerminate();
 	return 0;
