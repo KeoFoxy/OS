@@ -5,10 +5,9 @@
 //let env = process.env["NODE_ENV"];
 //import process from 'node:process';
 
-const arg = process.argv.splice(2);
+const fs = require('fs');
 
-//const element: HTMLElement = document.getElementById('Field') as HTMLElement
-//element.innerHTML = 'Hello World'
+const arg = process.argv.splice(2);
 
 
 function welcomePrint(){
@@ -34,18 +33,74 @@ function errorPrint(){
     console.log("88888888888  88          88           ``YbbdP`'   88              88  ")
 }
 
-//console.log(arg[0]);
-//console.log(arg[1]);
 
+  // YYYY-MM-DD hh:mm:ss
+  //(Current date and time)
+function padTo2Digits(num: number) {
+    return num.toString().padStart(2, '0');
+  }
+  
+function formatDate(date: Date) {
+  return (
+    [
+        date.getFullYear(),
+        padTo2Digits(date.getMonth() + 1),
+        padTo2Digits(date.getDate()),
+    ].join('-') +
+    ' ' +
+    [
+        padTo2Digits(date.getHours()),
+        padTo2Digits(date.getMinutes()),
+        padTo2Digits(date.getSeconds()),
+    ].join(':')
+  );
+}
 
+interface accessResult{
+    result: any//string[];
+    date: string;
+}
 
+function writeToJson() {
+    let resultToSend: accessResult = {
+        result: arg[0] + " " +  arg[1],
+        date: formatDate(new Date())
+    };
 
+    let data = JSON.stringify(resultToSend, null, 2);
+    fs.writeFileSync('result.json', data, (err) =>{
+        if(err) throw err
+        console.log(err);
+    })
+    //console.log('JSON Written');
+}
+
+/*
+let resultToSend: accessResult = {
+  result: arg[0] + " " +  arg[1],
+  date: formatDate(new Date())
+};
+
+let data = JSON.stringify(resultToSend, null, 2);
+fs.writeFileSync('result.json', data)
+console.log('JSON Written');
+//,(err) => {
+ // if (err) throw err;
+ // console.log('Data written to file');
+//});
+*/
 switch(arg[0] + " " +  arg[1]){
     case "Access Granted":
         welcomePrint()
+        console.log("\n");
+        console.log(formatDate(new Date()));
+        writeToJson()
         break
     case "Access Denied":
         errorPrint()
+        console.log("\n");
+        console.log(formatDate(new Date()));
+        writeToJson()
         break
     default:
         console.log("\n");
