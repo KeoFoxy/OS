@@ -71,17 +71,22 @@ console.log('JSON Written');
  // console.log('Data written to file');
 //});
 */
-switch (arg[0] + " " + arg[1]) {
-    case "Access Granted":
+
+console.log(arg[0] + " " + arg[1] + " " + arg[2]);
+
+switch (arg[0] + " " + arg[1] + " " + arg[2]) {
+    case "Access Granted opened":
         welcomePrint();
         console.log("\n");
         console.log(formatDate(new Date()));
+        console.log("Mode: opened");
         writeToJson();
         break;
-    case "Access Denied":
+    case "Access Denied closed":
         errorPrint();
         console.log("\n");
         console.log(formatDate(new Date()));
+        console.log("Mode: closed");
         writeToJson();
         break;
     default:
