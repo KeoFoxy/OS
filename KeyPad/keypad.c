@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <../pigpio.h>
+#include <pigpio.h>
 
 #include "fcntl.h"
 #include "sys/stat.h"
@@ -42,7 +42,7 @@ int rowPins[ROWS] = { 18, 17, 16, 25 }; // R0, R1, R2, R3
 int colPins[COLS] = { 20, 21, 19 };  // C0, C1, C2				
 #endif
 
-#ifdef KeyPad_V8
+#ifdef VAR8
 int rowPins[ROWS] = { 4, 25, 11, 8 }; // R0, R1, R2, R3	
 int colPins[COLS] = { 7, 6, 5 }; // C0, C1, C2
 #endif
@@ -126,6 +126,7 @@ int main(int argc, char *argv[])
 	system("clear");
 
 	int counter = 0;
+	int resetCounter = 0;
 	char resultBuffer[5];
 	char result[10];
 
@@ -136,23 +137,81 @@ int main(int argc, char *argv[])
 
 	fd = open(fifo, O_WRONLY | O_NONBLOCK);
 	//char result
+	char newPass[5];
+	sprintf(newPass, "12235");
+/*
+	char deletePassword = get_key();
+	if(strcmp(deletePassword, "#") == 0){
+		memset(newPass, "*", 5);
+		printf("Password has been deleted\n");
 
+		printf("Set new password. 5 digits limit!!!\n");
+		while(counter < 5){
+			char x = get_key();
+				if(x){
+					if (!quiet){
+						printf("pressed: %c\n", x);
+						newPass[counter] = x;
+						counter++;
+					}
+					else{
+						printf("%c\n", x);
+						newPass[counter] = x;
+						counter++;
+					}
+					//counter++;
+				} else if (!quiet)
+					printf("no key pressed\n");
+			}
+		}
+	printf("New password has been added\n");
 
+	counter = 0;
+
+	*/
 	//while (1) {
 		while(counter < 5){
 			char x = get_key();
+
+			if( (x == '#') ){
+				memset(newPass, 0, 5);
+				printf("Password has been deleted\n");
+
+				printf("Set new password. 5 digits limit!!!\n");
+
+				printf("%c%c%c%c%c", newPass);
+				
+				while(resetCounter < 5){
+					char y = get_key();
+					if(y){
+						if (!quiet){
+							printf("pressed: %c\n", y);
+							newPass[resetCounter] = y;
+							resetCounter++;
+						}
+						else{
+							printf("%c\n", y);
+							newPass[resetCounter] = y;
+							resetCounter++;
+						}
+						//counter++;
+					} else if (!quiet)
+						printf("no key pressed\n");
+				}
+			}
+
 			if (x) {
 				if (!quiet){
 					printf("pressed: %c\n", x);
 					resultBuffer[counter] = x;
-					counter++
+					counter++;
 				}
 				else{
 					printf("%c\n", x);
 					resultBuffer[counter] = x;
-					counter++
+					counter++;
 				}
-				counter++;
+				//counter++;
 			} else if (!quiet)
 				printf("no key pressed\n");
 			time_sleep(0.5);
@@ -160,9 +219,9 @@ int main(int argc, char *argv[])
 			//system("clear");
 		}
 
-	sprintf(result, "%c %c %c %c %c", resBuff[0], resBuff[1], resBuff[2], resBuff[3], resBuff[4]);
+	sprintf(result, "%c %c %c %c %c", resultBuffer[0], resultBuffer[1], resultBuffer[2], resultBuffer[3], resultBuffer[4]);
 
-	if(strcmp(result, "1 2 2 3 5") == 0){ //? printf("Access Granted") : printf("Access Denied");
+	if(strcmp(result, "1 2 2 2 2") == 0){ //? printf("Access Granted") : printf("Access Denied");
 		char res[255];
 		sprintf(res, "%s", "Access Granted");
 		write(fd, res, strlen(res) + 1);
