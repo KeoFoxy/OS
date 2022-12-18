@@ -14,6 +14,7 @@
 int main(int argc, char *argv[]){
 
     int fd;
+    char isOpen[7];// = "closed";
 
     if(argc > 1){
 
@@ -24,7 +25,13 @@ int main(int argc, char *argv[]){
         fd = open(fifo, O_RDONLY /*| O_NONBLOCK*/);
         read(fd, result, 255);
 
-        printf("%s", result);
+        if(strcmp(result, "Access Granted") == 0){
+            sprintf(isOpen, "opened");
+        } else {
+            sprintf(isOpen, "closed");
+        }
+        printf("%s %s", result, isOpen);
+        //printf("%s", isOpen);
 
         close(fd);
     }
