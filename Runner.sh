@@ -10,12 +10,14 @@
 
 if [[ $1 == "Keypad" ]]
     then 
-        ./KeyPad/keypad_AS_SD -q testPipe
+        sudo ./keypad_AS_SD -q testPipe
 fi
 
 if [[ $1 == "RFID" ]]
     then
-        ./RF-ID-Reader/RFID_AS_SD testPipe
+        echo "Starting RFID" 
+        ./RFID_AS_SD -q testPipe
+        #./test -q testPipe
 fi
 #./printer.sh < testPipe
 
