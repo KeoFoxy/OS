@@ -93,6 +93,7 @@ int main(int argc, char *argv[])
 			char t1[14]; 
 			sprintf(t1 ,"%02x %02x %02x %02x", uid[0], uid[1], uid[2], uid[3]);
 			
+			printf("%02x %02x %02x %02x", uid[0], uid[1], uid[2], uid[3]);
 			
 			//if(strcmp(t1, "91 2d 0c 26") == 0){
 			//	printf("GOOD");
@@ -116,7 +117,7 @@ int main(int argc, char *argv[])
 			fd = open(fifo, O_WRONLY | O_NONBLOCK);
 
 
-			if(strcmp(t1, "91 2d 0c 26") == 0){
+			if(strcmp(t1, "46 61 b0 e1") == 0){
 				//printf("Access Granted %s\n");//, asctime(local));
 				sprintf(result, "%s", "Access Granted");
 				write(fd, result, strlen(result) + 1);
@@ -138,3 +139,4 @@ int main(int argc, char *argv[])
 		}
 	}
 }
+
